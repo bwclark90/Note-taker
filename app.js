@@ -1,13 +1,13 @@
-const html = require("./public/routes/htmlRoutes")
-const api = require("./public/routes/apiRoutes")
+const html = require("./routes/htmlRoutes")
+const api = require("./routes/apiRoutes")
 const express = require('express')
 const { join } = require('path')
 const { uid } = require('uid')
 const fs = require('fs')
 const app = express()
-const db = require('db/db')
+const db = require('./db/db.json')
 
-
+//Middleware
 app.use(express.static(join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())

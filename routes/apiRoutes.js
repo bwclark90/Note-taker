@@ -1,7 +1,7 @@
-const notes = require("../db/db.json");
+let notes = require("../db/db.json");
 const fs = require("fs");
 const { uid } = require("uid");
-const db = require('db/db')
+
 
 
 const apiRoutes = (app) => {
@@ -17,13 +17,21 @@ const apiRoutes = (app) => {
       ...req.body
     }
     notes.push(note)
-    res.json(notes)
+    fs.writeFile("./db/db.json", JSON.stringify(notes) , err => {
+      if(err) throw err
+      res.json(notes)
+    })
+    
   })
 
   
   app.delete('/api/notes/:id', (req, res) => {
     notes = notes.filter(note => note.id !== req.params.id)
-    res.json(notes)
+    fs.writeFile("./db/db.json", JSON.stringify(notes), err => {
+      if (err) throw err
+      res.json(notes)
+    })
+    
   });
 };
 
